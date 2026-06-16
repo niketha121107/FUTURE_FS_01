@@ -2,6 +2,14 @@ import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 
 function Hero() {
+  // ✅ Resume open logic added
+  const openResume = () => {
+    const url =
+      "https://drive.google.com/file/d/1-86V74stDnazr_9opL7UjG_tUBQ1UhUs/view?usp=sharing";
+
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
   return (
     <section
       className="relative min-h-screen flex items-center justify-center px-6 py-20 overflow-hidden"
@@ -151,10 +159,9 @@ function Hero() {
           {/* BUTTONS */}
           <div className="flex flex-wrap gap-3 justify-center md:justify-start">
 
-            <a
-              href="/resume/Niketha_MS_Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
+            {/* ✅ UPDATED RESUME BUTTON */}
+            <button
+              onClick={openResume}
               className="px-6 py-3 rounded-full text-sm font-medium"
               style={{
                 background: "transparent",
@@ -163,7 +170,7 @@ function Hero() {
               }}
             >
               ✦ View Resume
-            </a>
+            </button>
 
             <a
               href="https://github.com/niketha121107"

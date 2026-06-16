@@ -3,7 +3,7 @@ import { useState } from "react";
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const links = ["About", "Skills", "Education", "Projects", "Contact"];
+  const links = ["About", "Value", "Skills", "Education", "Projects", "Achievements", "Blog", "Contact"];
 
   return (
     <nav className="fixed top-0 w-full bg-[#1a1a1f]/80 backdrop-blur-xl border-b border-white/10 z-50">

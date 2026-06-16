@@ -9,10 +9,10 @@ function Projects() {
         "Educational platform designed to enhance learning experience with an interactive and responsive interface.",
     },
     {
-      title: "AI Caretaker",
+      title: "Athelatica",
       tech: "Python • AI",
       description:
-        "AI assistant built to support specially-abled individuals with personalized assistance.",
+        "Sports ecosystem platform connecting athletes, coaches, academics, turf owners, clinics, sports associations and communities.",
     },
     {
       title: "Animal Intrusion Detection",
@@ -30,13 +30,19 @@ function Projects() {
       title: "AI Dialect Translator",
       tech: "AI • NLP • Python",
       description:
-        "Translates speech and text across multiple languages and regional dialects using AI.",
+        "Translates speech and text across multiple languages using AI.",
     },
     {
-      title: "Attendance System",
-      tech: "Python • Database",
+      title: "Client Lead Management System",
+      tech: "Python • Database Management",
       description:
-        "Digital attendance tracking system for educational institutions with automated records.",
+        "A web based CRM application that helps businesses manage and track client interactions and leads effectively.",
+    },
+    {
+      title: "Business Website",
+      tech: "Python • AI • React",
+      description:
+        "A live website for a business that showcases its services, products, and contact information.",
     },
   ];
 
