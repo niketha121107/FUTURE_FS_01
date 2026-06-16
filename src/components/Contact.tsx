@@ -99,16 +99,7 @@ function Contact() {
 
         {/* RESUME BUTTON */}
         <div className="mt-8 pt-6 border-t border-white/10">
-          <a
-            href="#resume"
-            className="inline-block px-8 py-3 rounded-full text-sm font-medium text-[#fff0f3] transition duration-300 hover:shadow-lg"
-            style={{
-              background: "linear-gradient(135deg, rgba(212,133,154,0.3) 0%, rgba(192,116,138,0.2) 100%)",
-              border: "1px solid rgba(212,133,154,0.5)",
-            }}
-          >
-            📄 View Resume
-          </a>
+          
         </div>
       </motion.div>
     </section>

@@ -186,18 +186,6 @@ function Hero() {
               GitHub
             </a>
 
-            <a
-              href="mailto:msniketha1211@gmail.com"
-              className="px-6 py-3 rounded-full text-sm font-medium"
-              style={{
-                background: "transparent",
-                color: "#a07888",
-                border: "1px solid rgba(180,120,140,0.35)",
-              }}
-            >
-              Contact
-            </a>
-
           </div>
         </motion.div>
 

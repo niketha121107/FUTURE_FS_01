@@ -39,7 +39,7 @@ function About() {
 
         {/* Background */}
         <p className="text-md md:text-lg mt-6 text-[#a07888] leading-relaxed">
-          My foundation in Mathematics and Biology helped me develop
+          My foundation in Mathematics and Biology stream dusing my HSLC helped me develop
           analytical thinking and curiosity, which naturally evolved into a
           deep interest in technology and problem-solving.
         </p>
