@@ -1,4 +1,4 @@
-# 💜 Nike Portfolio
+# Nike Portfolio
 
 A modern personal portfolio built using:
 
@@ -10,7 +10,7 @@ A modern personal portfolio built using:
 ---
 
 ## 🌐 Live Demo
-👉 https://your-render-link-here.onrender.com
+https://future-fs-01-jipu.onrender.com/
 
 ---
 
@@ -34,7 +34,11 @@ A modern personal portfolio built using:
 ---
 
 ## 📸 Preview
-(Add screenshot of your portfolio here)
+LIGHT MODE:
+<img width="1536" height="690" alt="image" src="https://github.com/user-attachments/assets/49c4e345-9376-4018-85ea-133c964ed16d" />
+DARK MODE:
+<img width="1532" height="697" alt="image" src="https://github.com/user-attachments/assets/e82a16ab-0d1e-4eda-a470-91b8e9af0351" />
+
 
 ---
 
