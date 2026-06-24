@@ -1,28 +1,60 @@
+import { useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 
 function Hero() {
-  // ✅ Resume open logic added
+  const profileCardRef = useRef<HTMLDivElement>(null);
+  const resumeBtnRef = useRef<HTMLButtonElement>(null);
+  const githubBtnRef = useRef<HTMLAnchorElement>(null);
+
   const openResume = () => {
     const url =
       "https://drive.google.com/file/d/1-86V74stDnazr_9opL7UjG_tUBQ1UhUs/view?usp=sharing";
-
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
+  const handleCardMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const card = profileCardRef.current;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -8;
+    const rotateY = ((x - centerX) / centerX) * 8;
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  }, []);
+
+  const handleCardMouseLeave = useCallback(() => {
+    if (profileCardRef.current) {
+      profileCardRef.current.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg)";
+    }
+  }, []);
+
+  const handleMagnetMove = useCallback((e: React.MouseEvent, el: HTMLElement | null) => {
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    el.style.transform = `translate(${x * 0.25}px, ${y * 0.25}px)`;
+  }, []);
+
+  const handleMagnetLeave = useCallback((el: HTMLElement | null) => {
+    if (el) el.style.transform = "translate(0, 0)";
+  }, []);
+
   return (
     <section
-      className="relative min-h-screen flex items-center justify-center px-6 py-20 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center px-6 py-20 overflow-hidden hero-bloom"
       style={{
         background: `
-          radial-gradient(ellipse at 20% 50%, #3d1f2d 0%, #1a1a1f 55%),
-          radial-gradient(ellipse at 80% 20%, #2a1a2e 0%, transparent 60%)
+          radial-gradient(ellipse at 20% 50%, var(--glow-1) 0%, var(--bg-primary) 55%),
+          radial-gradient(ellipse at 80% 20%, var(--glow-2) 0%, transparent 60%)
         `,
-        backgroundColor: "#1a1a1f",
         fontFamily: "'DM Sans', sans-serif",
       }}
     >
-      {/* Google Fonts */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
@@ -30,7 +62,7 @@ function Hero() {
           position: absolute;
           top: -100px; left: -100px;
           width: 500px; height: 500px;
-          background: radial-gradient(circle, rgba(180,100,120,0.18) 0%, transparent 70%);
+          background: radial-gradient(circle, var(--bg-hero-blob-1) 0%, transparent 70%);
           border-radius: 50%;
           pointer-events: none;
         }
@@ -39,13 +71,15 @@ function Hero() {
           position: absolute;
           bottom: -80px; right: -80px;
           width: 400px; height: 400px;
-          background: radial-gradient(circle, rgba(120,80,160,0.15) 0%, transparent 70%);
+          background: radial-gradient(circle, var(--bg-hero-blob-2) 0%, transparent 70%);
           border-radius: 50%;
           pointer-events: none;
         }
 
         .stat-card {
           animation: cardFadeIn 1s 0.3s ease both;
+          transition: transform 0.15s ease-out;
+          will-change: transform;
         }
 
         @keyframes cardFadeIn {
@@ -58,7 +92,7 @@ function Hero() {
           align-items: center;
           gap: 12px;
           padding: 14px 0;
-          border-bottom: 1px solid rgba(200,140,160,0.1);
+          border-bottom: 1px solid var(--border-card);
         }
 
         .stat-row:last-child {
@@ -69,7 +103,7 @@ function Hero() {
           width: 36px;
           height: 36px;
           border-radius: 10px;
-          background: rgba(192,116,138,0.12);
+          background: var(--bg-stat-icon);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -79,7 +113,7 @@ function Hero() {
 
         .stat-label {
           font-size: 0.7rem;
-          color: #6e5a5a;
+          color: var(--text-stat-label);
           text-transform: uppercase;
           letter-spacing: 0.08em;
           margin-bottom: 2px;
@@ -87,19 +121,65 @@ function Hero() {
 
         .stat-value {
           font-size: 0.92rem;
-          color: #d4b8c0;
+          color: var(--text-stat-value);
           font-weight: 500;
+        }
+
+        .hero-btn-resume {
+          position: relative;
+          overflow: hidden;
+          transition: color 0.3s ease, box-shadow 0.3s ease;
+          z-index: 1;
+        }
+        .hero-btn-resume::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: 9999px;
+          background: linear-gradient(135deg, var(--accent-secondary), var(--accent));
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          z-index: -1;
+        }
+        .hero-btn-resume:hover::before {
+          opacity: 1;
+        }
+        .hero-btn-resume:hover {
+          color: var(--text-on-accent);
+          box-shadow: 0 4px 25px var(--accent-glow);
+        }
+
+        .hero-btn-ghost {
+          position: relative;
+          overflow: hidden;
+          transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+          z-index: 1;
+        }
+        .hero-btn-ghost::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: 9999px;
+          background: var(--accent-btn-bg);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          z-index: -1;
+        }
+        .hero-btn-ghost:hover::before {
+          opacity: 1;
+        }
+        .hero-btn-ghost:hover {
+          color: var(--accent);
+          border-color: var(--accent-border);
+          box-shadow: 0 0 20px var(--accent-btn-bg);
         }
       `}</style>
 
-      {/* Background blobs */}
       <div className="hero-blob-1" />
       <div className="hero-blob-2" />
 
-      {/* Content */}
       <div className="relative z-10 max-w-4xl w-full flex flex-col-reverse md:flex-row items-center justify-between gap-12">
 
-        {/* LEFT SIDE */}
         <motion.div
           className="flex-1 text-center md:text-left"
           initial={{ opacity: 0, y: 30 }}
@@ -108,7 +188,7 @@ function Hero() {
         >
           <p
             className="text-xs tracking-widest uppercase mb-4 font-medium"
-            style={{ color: "#c0748a", letterSpacing: "0.2em" }}
+            style={{ color: "var(--accent-secondary)", letterSpacing: "0.2em" }}
           >
             ✿ welcome to my portfolio
           </p>
@@ -119,20 +199,20 @@ function Hero() {
               fontFamily: "'Playfair Display', serif",
               fontSize: "clamp(2.6rem, 5vw, 4rem)",
               fontWeight: 700,
-              color: "#f0e8e8",
+              color: "var(--text-primary)",
             }}
           >
             Hi there,
             <br />
             I'm{" "}
-            <em style={{ fontStyle: "italic", color: "#d4859a" }}>
+            <em className="gradient-text" style={{ fontStyle: "italic" }}>
               Niketha
             </em>
           </h1>
 
           <div
             className="mb-6 text-base font-normal"
-            style={{ color: "#a07888", minHeight: "1.6em" }}
+            style={{ color: "var(--text-muted)", minHeight: "1.6em" }}
           >
             <TypeAnimation
               sequence={[
@@ -150,37 +230,41 @@ function Hero() {
 
           <p
             className="text-sm leading-relaxed mb-9 max-w-md mx-auto md:mx-0"
-            style={{ color: "#8a7070" }}
+            style={{ color: "var(--text-dim)" }}
           >
             A passionate engineering student focused on building real-world
             applications using AI, data science, and modern web technologies.
           </p>
 
-          {/* BUTTONS */}
           <div className="flex flex-wrap gap-3 justify-center md:justify-start">
 
-            {/* ✅ UPDATED RESUME BUTTON */}
             <button
+              ref={resumeBtnRef}
               onClick={openResume}
-              className="px-6 py-3 rounded-full text-sm font-medium"
+              className="hero-btn-resume magnetic-btn px-6 py-3 rounded-full text-sm font-medium"
+              onMouseMove={(e) => handleMagnetMove(e, resumeBtnRef.current)}
+              onMouseLeave={() => handleMagnetLeave(resumeBtnRef.current)}
               style={{
                 background: "transparent",
-                color: "#fff0f3",
-                boxShadow: "0 4px 20px rgba(180,100,120,0.3)",
+                color: "var(--text-on-accent)",
+                boxShadow: "var(--shadow-button)",
               }}
             >
               ✦ View Resume
             </button>
 
             <a
+              ref={githubBtnRef}
               href="https://github.com/niketha121107"
               target="_blank"
               rel="noreferrer"
-              className="px-6 py-3 rounded-full text-sm font-medium"
+              className="hero-btn-ghost magnetic-btn px-6 py-3 rounded-full text-sm font-medium"
+              onMouseMove={(e) => handleMagnetMove(e, githubBtnRef.current)}
+              onMouseLeave={() => handleMagnetLeave(githubBtnRef.current)}
               style={{
                 background: "transparent",
-                color: "#a07888",
-                border: "1px solid rgba(180,120,140,0.35)",
+                color: "var(--text-muted)",
+                border: "1px solid var(--border-ghost)",
               }}
             >
               GitHub
@@ -189,19 +273,20 @@ function Hero() {
           </div>
         </motion.div>
 
-        {/* RIGHT CARD */}
         <motion.div
-          className="stat-card flex-shrink-0"
+          ref={profileCardRef}
+          className="stat-card flex-shrink-0 card-warm"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
+          onMouseMove={handleCardMouseMove}
+          onMouseLeave={handleCardMouseLeave}
           style={{
             width: "260px",
             borderRadius: "20px",
-            background: "linear-gradient(160deg, #25202e 0%, #1e1825 100%)",
-            border: "1px solid rgba(200,140,160,0.15)",
-            boxShadow:
-              "0 8px 40px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.03)",
+            background: "linear-gradient(160deg, var(--bg-card-start) 0%, var(--bg-card-end) 100%)",
+            border: "1px solid var(--border-card)",
+            boxShadow: "var(--shadow-card), var(--shadow-card-inner)",
             padding: "22px 20px",
             backdropFilter: "blur(12px)",
           }}
@@ -210,18 +295,18 @@ function Hero() {
             style={{
               marginBottom: "16px",
               paddingBottom: "14px",
-              borderBottom: "1px solid rgba(200,140,160,0.1)",
+              borderBottom: "1px solid var(--border-card)",
             }}
           >
-            <p style={{ fontSize: "0.68rem", color: "#6e5a5a" }}>
+            <p style={{ fontSize: "0.68rem", color: "var(--text-stat-label)" }}>
               Profile
             </p>
 
-            <p style={{ fontSize: "1rem", color: "#e8d8dc", fontWeight: 600 }}>
+            <p style={{ fontSize: "1rem", color: "var(--text-profile-name)", fontWeight: 600 }}>
               Niketha MS
             </p>
 
-            <p style={{ fontSize: "0.78rem", color: "#a07888" }}>
+            <p style={{ fontSize: "0.78rem", color: "var(--text-muted)" }}>
               B.Tech - AI & Data Science
             </p>
           </div>

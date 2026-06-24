@@ -8,40 +8,56 @@ function Contact() {
       className="min-h-screen flex items-center justify-center px-6 relative overflow-hidden"
       style={{
         background: `
-          radial-gradient(ellipse at 20% 50%, #3d1f2d 0%, #1a1a1f 55%),
-          radial-gradient(ellipse at 80% 20%, #2a1a2e 0%, transparent 60%)
+          radial-gradient(ellipse at 20% 50%, var(--glow-1) 0%, var(--bg-primary) 55%),
+          radial-gradient(ellipse at 80% 20%, var(--glow-2) 0%, transparent 60%)
         `,
       }}
     >
-      {/* soft glow */}
-      <div className="absolute top-[-120px] left-[-120px] w-[450px] h-[450px] bg-pink-500/10 blur-[160px] rounded-full"></div>
-      <div className="absolute bottom-[-120px] right-[-120px] w-[450px] h-[450px] bg-purple-500/10 blur-[160px] rounded-full"></div>
+      <div
+        className="absolute top-[-120px] left-[-120px] w-[450px] h-[450px] blur-[160px] rounded-full"
+        style={{ background: "var(--accent-glow)" }}
+      />
+      <div
+        className="absolute bottom-[-120px] right-[-120px] w-[450px] h-[450px] blur-[160px] rounded-full"
+        style={{ background: "var(--bg-hero-blob-2)" }}
+      />
 
-      {/* 💎 Glass Card */}
       <motion.div
-        className="w-full max-w-2xl text-center backdrop-blur-2xl bg-white/5 border border-white/10 rounded-3xl p-10 shadow-xl"
+        className="w-full max-w-2xl text-center backdrop-blur-2xl rounded-3xl p-10 shadow-xl card-warm card-glow-hover"
+        style={{
+          backgroundColor: "var(--bg-card)",
+          borderColor: "var(--border)",
+          borderWidth: "1px",
+        }}
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
       >
-        {/* Heading */}
-        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-[#f0e8e8]">
+        <motion.h2
+          className="text-4xl md:text-5xl font-bold mb-4"
+          style={{ color: "var(--text-primary)" }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
           Contact Me
-        </h2>
+        </motion.h2>
 
-        <p className="text-[#a07888] mb-10">
+        <p className="mb-10" style={{ color: "var(--text-muted)" }}>
           Let’s connect — open for collaboration, learning & opportunities 🚀
         </p>
 
-        {/* ICONS */}
         <div className="flex justify-center gap-10 text-4xl mb-10">
-
           <a
             href="https://github.com/niketha121107"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#d4b8c0] hover:text-[#d4859a] transition duration-300"
+            className="transition duration-300"
+            style={{ color: "var(--text-secondary)" }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = "var(--accent)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = ""; }}
           >
             <FaGithub />
           </a>
@@ -50,28 +66,33 @@ function Contact() {
             href="https://www.linkedin.com/in/niketha-ms-1a5262379"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#d4b8c0] hover:text-[#d4859a] transition duration-300"
+            className="transition duration-300"
+            style={{ color: "var(--text-secondary)" }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = "var(--accent)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = ""; }}
           >
             <FaLinkedin />
           </a>
 
           <a
             href="mailto:msniketha1211@gmail.com"
-            className="text-[#d4b8c0] hover:text-[#d4859a] transition duration-300"
+            className="transition duration-300"
+            style={{ color: "var(--text-secondary)" }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = "var(--accent)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = ""; }}
           >
             <FaEnvelope />
           </a>
         </div>
 
-        {/* LINKS */}
-        <div className="space-y-3 text-sm md:text-base text-[#a07888] mb-6">
-
+        <div className="space-y-3 text-sm md:text-base mb-6" style={{ color: "var(--text-muted)" }}>
           <p>
             💻 GitHub:{" "}
             <a
               href="https://github.com/niketha121107"
               target="_blank"
-              className="text-[#d4859a] font-medium hover:underline"
+              className="font-medium hover:underline"
+              style={{ color: "var(--accent)" }}
             >
               github.com/niketha121107
             </a>
@@ -82,7 +103,8 @@ function Contact() {
             <a
               href="https://www.linkedin.com/in/niketha-ms-1a5262379"
               target="_blank"
-              className="text-[#d4859a] font-medium hover:underline"
+              className="font-medium hover:underline"
+              style={{ color: "var(--accent)" }}
             >
               linkedin.com/in/niketha-ms
             </a>
@@ -90,17 +112,13 @@ function Contact() {
 
           <p>
             📧 Email:{" "}
-            <span className="text-[#d4859a] font-medium">
+            <span className="font-medium" style={{ color: "var(--accent)" }}>
               msniketha1211@gmail.com
             </span>
           </p>
-
         </div>
 
-        {/* RESUME BUTTON */}
-        <div className="mt-8 pt-6 border-t border-white/10">
-          
-        </div>
+        <div className="mt-8 pt-6" style={{ borderTop: "1px solid var(--border)" }} />
       </motion.div>
     </section>
   );

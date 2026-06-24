@@ -7,46 +7,68 @@ function Achievements() {
       className="min-h-screen flex items-center justify-center px-6 py-24 relative overflow-hidden"
       style={{
         background: `
-          radial-gradient(ellipse at 20% 50%, #3d1f2d 0%, #1a1a1f 55%),
-          radial-gradient(ellipse at 80% 20%, #2a1a2e 0%, transparent 60%)
+          radial-gradient(ellipse at 20% 50%, var(--glow-1) 0%, var(--bg-primary) 55%),
+          radial-gradient(ellipse at 80% 20%, var(--glow-2) 0%, transparent 60%)
         `,
       }}
     >
-      {/* Glow Effects */}
-      <div className="absolute top-[-120px] left-[-120px] w-[450px] h-[450px] bg-pink-500/10 blur-[160px] rounded-full"></div>
-      <div className="absolute bottom-[-120px] right-[-120px] w-[450px] h-[450px] bg-purple-500/10 blur-[160px] rounded-full"></div>
+      <div
+        className="absolute top-[-120px] left-[-120px] w-[450px] h-[450px] blur-[160px] rounded-full"
+        style={{ background: "var(--accent-glow)" }}
+      />
+      <div
+        className="absolute bottom-[-120px] right-[-120px] w-[450px] h-[450px] blur-[160px] rounded-full"
+        style={{ background: "var(--bg-hero-blob-2)" }}
+      />
 
-      {/* Main Card */}
       <motion.div
-        className="max-w-4xl w-full relative z-10 backdrop-blur-2xl bg-white/5 border border-white/10 rounded-3xl p-10 shadow-xl"
+        className="max-w-4xl w-full relative z-10 backdrop-blur-2xl rounded-3xl p-10 shadow-xl card-warm"
+        style={{
+          backgroundColor: "var(--bg-card)",
+          borderColor: "var(--border)",
+          borderWidth: "1px",
+        }}
         initial={{ opacity: 0, y: 60 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
       >
-        {/* TITLE */}
-        <h2 className="text-4xl md:text-5xl font-bold text-center text-[#f0e8e8] mb-4">
+        <motion.h2
+          className="text-4xl md:text-5xl font-bold text-center mb-4"
+          style={{ color: "var(--text-primary)" }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
           Achievements & Certifications 🏆
-        </h2>
+        </motion.h2>
 
-        {/* CONNECTOR */}
-        <p className="text-center text-[#a07888] mb-10 text-sm leading-relaxed">
+        <p className="text-center mb-10 text-sm leading-relaxed" style={{ color: "var(--text-muted)" }}>
           Built on initiative, resilience, and product curiosity — every step reflects
           consistent learning and real-world exploration 🚀
         </p>
 
-        {/* ACHIEVEMENTS */}
         <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          viewport={{ once: true }}
           whileHover={{ scale: 1.02 }}
-          className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-[#d4859a]/40 transition-all mb-6"
+          className="p-6 rounded-2xl card-accent-border card-glow-hover mb-6"
+          style={{
+            backgroundColor: "var(--bg-card)",
+            borderColor: "var(--border)",
+            borderWidth: "1px",
+          }}
         >
-          <span className="text-[#d4859a] font-semibold">🏆 Achievements</span>
+          <span className="font-semibold" style={{ color: "var(--accent)" }}>🏆 Achievements</span>
 
-          <p className="mt-3 text-[#a07888] text-sm">
+          <p className="mt-3 text-sm" style={{ color: "var(--text-muted)" }}>
             A journey shaped by initiative, resilience, and product curiosity 🚀
           </p>
 
-          <div className="mt-5 space-y-4 text-[#c7b2b8] text-sm">
+          <div className="mt-5 space-y-4 text-sm" style={{ color: "var(--text-card-body)" }}>
 
             <p>🚀 Participated in hackathons and coding challenges.</p>
             <p>🧠 Built multiple mini-projects using Python, React, and AI.</p>
@@ -56,14 +78,22 @@ function Achievements() {
           </div>
         </motion.div>
 
-        {/* CERTIFICATIONS */}
         <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.25 }}
+          viewport={{ once: true }}
           whileHover={{ scale: 1.02 }}
-          className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-[#d4859a]/40 transition-all"
+          className="p-6 rounded-2xl card-accent-border card-glow-hover"
+          style={{
+            backgroundColor: "var(--bg-card)",
+            borderColor: "var(--border)",
+            borderWidth: "1px",
+          }}
         >
-          <span className="text-[#d4859a] font-semibold">📜 Certifications</span>
+          <span className="font-semibold" style={{ color: "var(--accent)" }}>📜 Certifications</span>
 
-          <p className="mt-3 text-[#c7b2b8] leading-relaxed">
+          <p className="mt-3 leading-relaxed" style={{ color: "var(--text-card-body)" }}>
             Earned certifications in Python programming, IoT fundamentals, Artificial Intelligence basics,
             and Claude 101. These certifications strengthened core programming knowledge and introduced
             practical AI concepts and modern development tools.

@@ -22,67 +22,110 @@ function Education() {
     },
   ];
 
+  const containerVariants = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: 50 },
+    show: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  };
+
   return (
     <section
       id="education"
       className="min-h-screen px-6 py-20 flex items-center justify-center relative overflow-hidden"
       style={{
         background: `
-          radial-gradient(ellipse at 20% 50%, #3d1f2d 0%, #1a1a1f 55%),
-          radial-gradient(ellipse at 80% 20%, #2a1a2e 0%, transparent 60%)
+          radial-gradient(ellipse at 20% 50%, var(--glow-1) 0%, var(--bg-primary) 55%),
+          radial-gradient(ellipse at 80% 20%, var(--glow-2) 0%, transparent 60%)
         `,
       }}
     >
-      {/* glow effects */}
-      <div className="absolute top-[-120px] left-[-120px] w-[450px] h-[450px] bg-pink-500/10 blur-[160px] rounded-full"></div>
-      <div className="absolute bottom-[-120px] right-[-120px] w-[450px] h-[450px] bg-purple-500/10 blur-[160px] rounded-full"></div>
+      <div
+        className="absolute top-[-120px] left-[-120px] w-[450px] h-[450px] blur-[160px] rounded-full"
+        style={{ background: "var(--accent-glow)" }}
+      />
+      <div
+        className="absolute bottom-[-120px] right-[-120px] w-[450px] h-[450px] blur-[160px] rounded-full"
+        style={{ background: "var(--bg-hero-blob-2)" }}
+      />
 
       <div className="max-w-4xl w-full">
 
-        {/* Heading */}
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-14 text-[#f0e8e8]">
+        <motion.h2
+          className="text-4xl md:text-5xl font-bold text-center mb-14"
+          style={{ color: "var(--text-primary)" }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
           Education Journey 🎓
-        </h2>
+        </motion.h2>
 
-        {/* Timeline */}
-        <div className="relative border-l border-white/10 ml-4">
-
+        <motion.div
+          className="relative ml-4"
+          style={{ borderLeft: "1px solid var(--border)" }}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-50px" }}
+        >
           {timeline.map((item, index) => (
             <motion.div
               key={index}
               className="mb-12 ml-8 relative"
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
+              variants={itemVariants}
             >
-              {/* dot */}
-              <div className="absolute w-4 h-4 rounded-full -left-10 mt-2 bg-[#d4859a] shadow-[0_0_15px_rgba(212,133,154,0.5)]"></div>
+              <div
+                className="absolute w-4 h-4 rounded-full -left-10 mt-2"
+                style={{
+                  backgroundColor: "var(--accent)",
+                  boxShadow: "0 0 15px var(--accent-glow)",
+                }}
+              />
 
-              {/* card */}
-              <div className="backdrop-blur-2xl bg-white/5 border border-white/10 p-6 rounded-2xl shadow-lg hover:shadow-[0_0_25px_rgba(180,100,120,0.25)] transition">
-
-                <span className="text-sm font-semibold text-[#d4859a]">
+              <div
+                className="backdrop-blur-2xl p-6 rounded-2xl card-hover-shadow card-warm"
+                style={{
+                  backgroundColor: "var(--bg-card)",
+                  borderColor: "var(--border)",
+                  borderWidth: "1px",
+                }}
+              >
+                <span
+                  className="text-sm font-semibold"
+                  style={{ color: "var(--accent)" }}
+                >
                   {item.year}
                 </span>
 
-                <h3 className="text-xl font-bold mt-1 text-[#f0e8e8]">
+                <h3 className="text-xl font-bold mt-1" style={{ color: "var(--text-primary)" }}>
                   {item.title}
                 </h3>
 
-                <p className="text-sm text-[#a07888] mt-1">
+                <p className="text-sm mt-1" style={{ color: "var(--text-muted)" }}>
                   📍 {item.place}
                 </p>
 
-                <p className="text-sm text-[#8a7070] mt-3 leading-relaxed">
+                <p className="text-sm mt-3 leading-relaxed" style={{ color: "var(--text-dim)" }}>
                   {item.desc}
                 </p>
 
               </div>
             </motion.div>
           ))}
-
-        </div>
+        </motion.div>
       </div>
     </section>
   );
