@@ -34,12 +34,6 @@ function Projects() {
         "Translates speech and text across multiple languages using AI.",
     },
     {
-      title: "Client Lead Management System",
-      tech: "Python • Database Management",
-      description:
-        "A web based CRM application that helps businesses manage and track client interactions and leads effectively.",
-    },
-    {
       title: "Leaf & Bloom Home Nursery",
       tech: "Python • Database Management • React",
       description:
